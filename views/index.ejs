@@ -2,61 +2,61 @@
 <html>
 <head>
     <title>Voting Form</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body class="bg-light">
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-success text-white">
-            Voting Registration
-        </div>
-        <div class="card-body">
+<body>
 
-            <% if (error) { %>
-                <div class="alert alert-danger"><%= error %></div>
-            <% } %>
+<div class="bg-wrapper">
+  <div class="login-card">
 
-            <% if (success) { %>
-                <div class="alert alert-success"><%= success %></div>
-            <% } %>
+    <h4 class="text-center mb-3">Voting Registration</h4>
 
-            <form method="POST" action="/submit">
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
 
-                <div class="mb-3">
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control">
-                </div>
+    <% if (success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
 
-                <div class="mb-3">
-                    <label>Date of Birth</label>
-                    <input type="date" name="dob" class="form-control">
-                </div>
+    <form method="POST" action="/submit">
 
-                <div class="mb-3">
-                    <label>Aadhaar Number</label>
-                    <input type="text" name="aadhaar" class="form-control">
-                </div>
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control">
+      </div>
 
-                <div class="mb-3">
-                    <label>Voting Preference</label>
-                    <select name="voting_preference" class="form-select">
-                        <option value="">Select</option>
-                        <option>DMK</option>
-                        <option>ADMK</option>
-                        <option>TVK</option>
-                        <option>NTK</option>
-                        <option>BJP</option>
-                        <option>PMK</option>
-                        <option>Other (Dominant)</option>
-                    </select>
-                </div>
+      <div class="mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" name="dob" class="form-control">
+      </div>
 
-                <button class="btn btn-primary w-100">Submit</button>
-            </form>
+      <div class="mb-3">
+        <label class="form-label">Aadhaar Number</label>
+        <input type="text" name="aadhaar" class="form-control">
+      </div>
 
-        </div>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Voting Preference</label>
+        <select name="voting_preference" class="form-select">
+          <option value="">Select</option>
+          <option>DMK</option>
+          <option>ADMK</option>
+          <option>TVK</option>
+          <option>NTK</option>
+          <option>BJP</option>
+          <option>PMK</option>
+          <option>Other (Dominant)</option>
+        </select>
+      </div>
+
+      <button class="btn btn-success w-100">Submit</button>
+    </form>
+
+  </div>
 </div>
 
 </body>

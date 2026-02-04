@@ -3,9 +3,15 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
-const app = express();
+const app = express(); // ✅ app FIRST
+
+// static files
+app.use(express.static("public"));
+
+// view engine
 app.set('view engine', 'ejs');
 
+// middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'secret',
@@ -13,7 +19,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Connect to MySQL
+// MySQL connection
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -22,34 +28,33 @@ const db = mysql.createConnection({
 });
 
 db.connect(err => {
-    if(err) throw err;
+    if (err) throw err;
     console.log('MySQL Connected...');
 });
 
-// Show form
+// routes
 app.get('/', (req, res) => {
     res.render('index', { error: null, success: null });
 });
 
-// Handle form submission
 app.post('/submit', (req, res) => {
     const { name, dob, aadhaar, voting_preference } = req.body;
 
-    // Validate
-    if(!name || !dob || !aadhaar || !voting_preference){
+    if (!name || !dob || !aadhaar || !voting_preference) {
         return res.render('index', { error: 'All fields are required', success: null });
     }
 
-    // Insert into DB
-    const sql = `INSERT INTO voters (name, dob, aadhaar, voting_preference) VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO voters (name, dob, aadhaar, voting_preference)
+                 VALUES (?, ?, ?, ?)`;
 
     db.query(sql, [name, dob, aadhaar, voting_preference], (err) => {
-        if(err){
-            if(err.code === 'ER_DUP_ENTRY'){
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
                 return res.render('index', { error: 'Aadhaar already exists', success: null });
             }
             return res.render('index', { error: 'Database error', success: null });
         }
+
         res.render('index', { error: null, success: 'Voter registered successfully!' });
     });
 });
