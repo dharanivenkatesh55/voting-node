@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
-const app = express(); // ✅ app FIRST
+const app = express(); 
 
 app.use(express.static("public"));
 
