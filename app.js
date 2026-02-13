@@ -5,13 +5,10 @@ const session = require('express-session');
 
 const app = express(); // ✅ app FIRST
 
-// static files
 app.use(express.static("public"));
 
-// view engine
 app.set('view engine', 'ejs');
 
-// middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'secret',
@@ -19,7 +16,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// MySQL connection
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -32,7 +28,6 @@ db.connect(err => {
     console.log('MySQL Connected...');
 });
 
-// routes
 app.get('/', (req, res) => {
     res.render('index', { error: null, success: null });
 });
